@@ -1,0 +1,6 @@
+{
+  "name": "Professional Personal CV & Portfolio",
+  "description": "An interactive, beautifully animated personal Curriculum Vitae and professional portfolio website showcasing skills, education, projects, achievements, and experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
