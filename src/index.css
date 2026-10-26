@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0b0b0c;
+    --ink: #e2e2e4;
+    --accent: #d0ff00;
+    --ink-faint: rgba(226, 226, 228, 0.08);
+    --ink-dim: rgba(226, 226, 228, 0.5);
+    --card-bg: #161618;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    height: 100vh;
+  }
+}
+
+.font-mono-jb {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(226, 226, 228, 0.08);
+}

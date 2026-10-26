@@ -7,8 +7,7 @@ import {
   Phone, 
   Github, 
   Linkedin, 
-  CheckCircle2, 
-  Sparkles 
+  CheckCircle2
 } from 'lucide-react';
 import { PersonalInfo } from '../types';
 
@@ -31,18 +30,8 @@ export const Hero: React.FC<HeroProps> = ({ personal, onOpenCustomize }) => {
           {/* Left Column: Text & Profile Intro */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
-            {/* Availability Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs sm:text-sm font-semibold shadow-sm animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>Available for Internships, Freelance & Employment</span>
-            </div>
-
             {/* Title & Name */}
             <div className="space-y-3">
-              <div className="flex items-center justify-center lg:justify-start gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm sm:text-base uppercase tracking-wider">
-                <Sparkles className="w-4 h-4" />
-                <span>Curriculum Vitae & Professional Portfolio</span>
-              </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Hi, I'm <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">{personal.fullName}</span>
               </h1>

@@ -2,183 +2,192 @@ import { CVData } from '../types';
 
 export const defaultCVData: CVData = {
   personal: {
-    fullName: "Marvin Kent Urmando",
-    professionalTitle: "Full Stack Web Developer & Future IT Professional",
+    fullName: "Marvin Ken P. Tumando",
+    professionalTitle: "BSIT Student, Editor & Full Stack Developer",
     profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
-    introduction: "Passionate Information Technology student and aspiring software developer with a strong foundation in modern web technologies, responsive UI/UX design, and robust backend systems. Dedicated to building clean, user-centric, and scalable applications that solve real-world problems.",
-    careerObjective: "To secure a challenging software engineering internship or entry-level web development role where I can apply my technical skills, collaborate with innovative engineering teams, and contribute to impactful digital products.",
-    location: "Davao City, Philippines (Open to Remote & Relocation)",
+    introduction: "Information Technology student, Managing & Circulations Editor of The Davao Reef, award-winning campus journalist, and full-stack software developer from Magnaga, Pantukan, Davao de Oro. Passionate about bridging software engineering, digital media, and UI/UX design.",
+    careerObjective: "To leverage my technical expertise in web development (PHP, Laravel, JavaScript, Java, SQL) and creative direction (UI/UX, photography, journalism) to build high-impact software systems and digital platforms.",
+    location: "Prk. 14A, Magnaga, Pantukan, Davao de Oro, Philippines",
     email: "marvinkentumando@gmail.com",
-    phone: "+63 (912) 345-6789",
+    phone: "09639650443",
     githubUrl: "https://github.com/marvinkentumando",
-    linkedinUrl: "https://linkedin.com/in/marvin-kent-urmando",
+    linkedinUrl: "https://linkedin.com/in/marvin-ken-tumando",
     facebookUrl: "https://facebook.com/marvinkentumando",
     instagramUrl: "https://instagram.com/marvinkentumando",
     twitterUrl: "https://twitter.com/marvinkentumando",
     careerInterests: [
       "Full Stack Web Development",
-      "Cloud Architecture & Deployment",
-      "UI/UX Design & Frontend Engineering",
-      "API Development & Database Management",
-      "Open Source Collaboration"
+      "PHP Laravel & Database Management",
+      "UI/UX Design & Branding",
+      "Campus Journalism & Editorial Leadership",
+      "Digital Videography & Media Arts"
     ]
   },
   education: [
     {
       id: "edu-1",
-      school: "University of Southeastern Philippines",
+      school: "Davao del Norte State College (DNSC)",
       degree: "Bachelor of Science in Information Technology",
-      period: "2023 - Present (Expected 2027)",
-      yearLevel: "3rd Year Undergraduate",
-      honors: "Dean's Lister (Consistent Academic Excellence)",
-      description: "Focused on software engineering principles, data structures and algorithms, database management systems, and advanced web application frameworks."
+      period: "2023 - 2027",
+      yearLevel: "Undergraduate (Dean's Lister)",
+      honors: "Consistent Dean's Lister (1st & 2nd Semesters, 2023-2025)",
+      description: "Pursuing BS Information Technology with consistent academic excellence and leadership in institutional student research and journalism."
     },
     {
       id: "edu-2",
-      school: "Davao City National High School",
-      degree: "Senior High School - Science, Technology, Engineering, and Mathematics (STEM)",
-      period: "2021 - 2023",
-      yearLevel: "Graduated with Honors",
-      honors: "With Honors, Science Research Excellence Award",
-      description: "Completed specialized STEM curriculum with advanced coursework in mathematics, basic programming, and scientific research methodologies."
+      school: "Senior High School & Junior High School",
+      degree: "Humanities and Social Sciences",
+      period: "2017 - 2024",
+      yearLevel: "Graduated with High Honors",
+      honors: "Class Valedictorian, With High Honor, Best in Research Innovation",
+      description: "Awarded Vice Mayor's Academic Excellence Award, Governor Dorothy Montejo Gonzaga Award, and Congress Resuwel Peter Gonzaga Award."
     }
   ],
   skills: [
-    { id: "s-1", name: "JavaScript (ES6+)", category: "frontend", proficiency: 90 },
-    { id: "s-2", name: "TypeScript", category: "frontend", proficiency: 85 },
-    { id: "s-3", name: "React / Next.js", category: "frontend", proficiency: 90 },
-    { id: "s-4", name: "HTML5 & CSS3 / Tailwind", category: "frontend", proficiency: 95 },
-    { id: "s-5", name: "Node.js & Express", category: "backend", proficiency: 80 },
-    { id: "s-6", name: "Python & FastAPI", category: "backend", proficiency: 75 },
-    { id: "s-7", name: "PostgreSQL & SQL", category: "backend", proficiency: 80 },
-    { id: "s-8", name: "Git & GitHub", category: "tools", proficiency: 90 },
-    { id: "s-9", name: "Vite & Build Tools", category: "tools", proficiency: 85 },
-    { id: "s-10", name: "UI/UX & Figma", category: "tools", proficiency: 80 },
-    { id: "s-11", name: "Problem Solving", category: "soft", proficiency: 95 },
-    { id: "s-12", name: "Team Collaboration", category: "soft", proficiency: 90 },
-    { id: "s-13", name: "Effective Communication", category: "soft", proficiency: 88 },
-    { id: "s-14", name: "Adaptability & Agile", category: "soft", proficiency: 92 }
+    { id: "s-1", name: "Web Development (PHP, SQL, Java, JS)", category: "backend", proficiency: 92 },
+    { id: "s-2", name: "PHP Laravel Framework", category: "backend", proficiency: 90 },
+    { id: "s-3", name: "HTML, CSS, Bootstrap, Tailwind", category: "frontend", proficiency: 95 },
+    { id: "s-4", name: "UI / UX Design & Branding", category: "tools", proficiency: 90 },
+    { id: "s-5", name: "Videography & Editing", category: "tools", proficiency: 88 },
+    { id: "s-6", name: "Photography & Editing", category: "tools", proficiency: 90 },
+    { id: "s-7", name: "Illustration & Logo Making", category: "tools", proficiency: 85 },
+    { id: "s-8", name: "Newsletters & Editorial Writing", category: "soft", proficiency: 98 },
+    { id: "s-9", name: "Quantitative Research", category: "soft", proficiency: 92 },
+    { id: "s-10", name: "Leadership & Communication", category: "soft", proficiency: 95 }
   ],
   projects: [
     {
       id: "proj-1",
-      title: "CampusCare Student Portal & Support Hub",
-      description: "A full-stack web application designed for university students to submit support tickets, track academic advising schedules, and access campus resources in real time.",
+      title: "UMA: E-Commerce Agriculture",
+      description: "An agricultural e-commerce platform built with HTML, CSS, Bootstrap, Tailwind CSS, JavaScript, PHP Laravel, and SQL connecting farmers directly to consumers.",
       category: "Full Stack",
-      technologies: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
-      imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
-      githubUrl: "https://github.com/marvinkentumando/campus-care-portal",
-      liveUrl: "https://campus-care-demo.vercel.app",
+      technologies: ["PHP Laravel", "Tailwind CSS", "JavaScript", "SQL", "Bootstrap"],
+      imageUrl: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+      githubUrl: "https://github.com/marvinkentumando/uma-agriculture",
+      liveUrl: "https://uma-agriculture.vercel.app",
       featured: true
     },
     {
       id: "proj-2",
-      title: "DevPulse AI Code Review Assistant",
-      description: "An intelligent web tool that analyzes code snippets, detects potential bugs, suggests optimization patterns, and generates comprehensive unit tests.",
-      category: "AI & Tools",
-      technologies: ["React", "Gemini API", "Tailwind CSS", "Vite", "TypeScript"],
-      imageUrl: "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?auto=format&fit=crop&q=80&w=800",
-      githubUrl: "https://github.com/marvinkentumando/devpulse-ai",
-      liveUrl: "https://devpulse-ai.vercel.app",
+      title: "HATAG [Helping All Through Active Giving]",
+      description: "A community donation and aid distribution web platform built with HTML, Tailwind CSS, JavaScript, PHP, and SQL.",
+      category: "Full Stack",
+      technologies: ["PHP", "Tailwind CSS", "JavaScript", "SQL", "HTML"],
+      imageUrl: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb9?auto=format&fit=crop&q=80&w=800",
+      githubUrl: "https://github.com/marvinkentumando/hatag-giving",
+      liveUrl: "https://hatag-giving.vercel.app",
       featured: true
     },
     {
       id: "proj-3",
-      title: "EcoTrack Carbon Footprint Visualizer",
-      description: "An interactive dashboard for tracking daily energy consumption, transportation habits, and waste generation with personalized sustainability recommendations.",
-      category: "Mobile/Web",
-      technologies: ["JavaScript", "React", "Chart.js", "Tailwind CSS"],
-      imageUrl: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
-      githubUrl: "https://github.com/marvinkentumando/ecotrack-dashboard",
-      liveUrl: "https://ecotrack-demo.vercel.app",
+      title: "Online Riding App for PWDs",
+      description: "A specialized transportation booking system featuring graphical user interface (GUI) and complete CRUD operations built in Java.",
+      category: "AI & Tools",
+      technologies: ["Java", "GUI", "CRUD", "Desktop App"],
+      imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
+      githubUrl: "https://github.com/marvinkentumando/pwd-riding-app",
       featured: false
     },
     {
       id: "proj-4",
-      title: "SkillBridge Freelance Marketplace UI",
-      description: "A responsive frontend UI for connecting student freelancers with local businesses and startups needing design and development services.",
+      title: "Community Pantry System",
+      description: "A streamlined inventory and distribution tracking system built using HTML, CSS, and Bootstrap.",
       category: "Frontend",
-      technologies: ["React", "Tailwind CSS", "Framer Motion", "Lucide Icons"],
+      technologies: ["HTML", "CSS", "Bootstrap"],
       imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-      githubUrl: "https://github.com/marvinkentumando/skillbridge-ui",
-      liveUrl: "https://skillbridge-ui.vercel.app",
+      githubUrl: "https://github.com/marvinkentumando/community-pantry",
       featured: false
     }
   ],
   experience: [
     {
       id: "exp-1",
-      role: "Lead Frontend Developer (Capstones)",
-      company: "University IT Department Project",
-      location: "Davao City, Philippines",
-      period: "2025 - Present",
-      type: "Academic Project",
+      role: "Managing & Circulations Editor",
+      company: "The Davao Reef (Official Student Publication)",
+      location: "Davao del Norte State College",
+      period: "2026 - 2027",
+      type: "Leadership",
       highlights: [
-        "Architected responsive user interfaces using React, TypeScript, and Tailwind CSS for university management systems.",
-        "Collaborated with backend developers to integrate RESTful APIs and ensure seamless data synchronization.",
-        "Conducted usability testing with students and faculty to refine user experience and accessibility standards."
+        "Managing editorial publications, circulations, and layout standards for the institutional student publication.",
+        "Overseeing a team of writers, photojournalists, and page designers for high-quality campus releases.",
+        "Former Associate Editor (2025-2026) and Writer (2023-2024)."
       ]
     },
     {
       id: "exp-2",
-      role: "Freelance Web Developer & UI Designer",
-      company: "Self-Employed / Client Projects",
-      location: "Remote",
-      period: "2024 - Present",
-      type: "Freelance",
+      role: "Editor-in-Chief & Photojournalist",
+      company: "The Shoreline",
+      location: "Davao de Oro",
+      period: "2018 - 2023",
+      type: "Leadership",
       highlights: [
-        "Designed and deployed customized landing pages and portfolio websites for small local businesses and student entrepreneurs.",
-        "Optimized website performance, achieving 95+ Google Lighthouse scores across accessibility, SEO, and speed.",
-        "Managed client requirements, project timelines, and deployment workflows using Git and Vercel."
+        "Led editorial board as Editor-in-Chief (2022-2023), directing news coverage, investigative reporting, and publication design.",
+        "Awarded Most Outstanding Campus Journalist in Davao de Oro (2023) and 2nd Most Outstanding Campus Journalist in Davao Region (2023).",
+        "Competed and triumphed in numerous DSPC, RSPC, and NSPC Collaborative Desktop Publishing competitions."
       ]
     },
     {
       id: "exp-3",
-      role: "Junior Officer & Technical Committee Member",
-      company: "IT Students Society",
-      location: "Davao City, Philippines",
-      period: "2023 - 2025",
+      role: "Set Mayor & Student Leader",
+      company: "DNSC IT Department",
+      location: "Panabo City",
+      period: "2023 - 2024",
       type: "Leadership",
       highlights: [
-        "Co-organized university coding bootcamps, workshops, and hackathons attended by over 200 student participants.",
-        "Mentored junior students on programming fundamentals, Git version control, and web development basics.",
-        "Created promotional digital graphics and managed the organization's online announcements and event portals."
+        "Served as Set Mayor during 1st Semester (2023-2024), coordinating student affairs and academic initiatives.",
+        "External PIO for Chestnut Division (2024) and Resource Speaker for Adjournture 2024.",
+        "Active member of Praise and Worship Team (LTFGC) and youth camp facilitator."
       ]
     }
   ],
   achievements: [
     {
       id: "ach-1",
-      title: "Champion - University Inter-Department Coding Hackathon",
-      issuer: "University of Southeastern Philippines",
-      date: "November 2025",
+      title: "1st Place - Collaborative Desktop Publishing (Regional Schools Press Conference - RSPC 2023)",
+      issuer: "Department of Education",
+      date: "2023",
       type: "Competition",
-      description: "Developed an emergency response notification web app within 24 hours that secured 1st place among 20 competing teams."
+      description: "Champion in RSPC Collaborative Desktop Publishing, following a string of DSPC and RSPC titles from 2019 to 2023."
     },
     {
       id: "ach-2",
-      title: "AWS Academy Graduate - Cloud Foundations",
-      issuer: "Amazon Web Services (AWS)",
-      date: "August 2025",
-      type: "Certificate",
-      credentialUrl: "https://aws.amazon.com/verification",
-      description: "Completed comprehensive training on cloud computing concepts, AWS core services, security, architecture, and pricing."
+      title: "2nd Place - Collaborative Desktop Publishing (National Schools Press Conference - NSPC 2023)",
+      issuer: "Department of Education",
+      date: "2023",
+      type: "Competition",
+      description: "National podium finish representing the Davao Region in Collaborative Desktop Publishing."
     },
     {
       id: "ach-3",
-      title: "Dean's Lister Award for Academic Excellence",
-      issuer: "College of Information Technology",
-      date: "2023 - 2025 (4 Semesters)",
+      title: "Most Outstanding Campus Journalist in Davao de Oro",
+      issuer: "Division of Davao de Oro",
+      date: "2023",
       type: "Award",
-      description: "Maintained a cumulative Grade Point Average in the top 5% of the College of Information Technology student body."
+      description: "Recognized for exceptional journalism excellence, leadership, and publication contributions."
     },
     {
       id: "ach-4",
-      title: "Advanced JavaScript & React Certification",
-      issuer: "Frontend Masters & Coursera",
-      date: "March 2024",
-      type: "Certificate",
-      description: "Mastered modern asynchronous JavaScript, React hooks, state management, and performance optimization techniques."
+      title: "Best Director & Best Film - Pagbag-o",
+      issuer: "FY Chestnut Division Film Festival",
+      date: "2021",
+      type: "Award",
+      description: "Won Best Director and Best Film honors for short film production 'Pagbag-o'."
+    },
+    {
+      id: "ach-5",
+      title: "Governor Dorothy Montejo Gonzaga Academic Excellence Award",
+      issuer: "Provincial Government of Davao de Oro",
+      date: "2024",
+      type: "Award",
+      description: "Prestigious academic award honoring exemplary scholastic performance and leadership."
+    },
+    {
+      id: "ach-6",
+      title: "2nd Place - Poetry Writing (National Campus Media Conference 2026)",
+      issuer: "NCMC",
+      date: "2026",
+      type: "Competition",
+      description: "National podium placement in poetry writing."
     }
   ]
 };
