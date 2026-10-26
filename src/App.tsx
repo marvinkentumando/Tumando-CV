@@ -177,9 +177,29 @@ export default function App() {
                     <h1 className={`text-2xl sm:text-4xl font-semibold tracking-tight mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                       {cvData.personal.fullName}
                     </h1>
-                    <p className={`text-sm sm:text-lg leading-relaxed max-w-3xl ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
+                    <p className={`text-sm sm:text-lg leading-relaxed max-w-3xl mb-4 ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
                       {cvData.personal.introduction}
                     </p>
+
+                    {/* Vital Statistics Card */}
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl border ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.8)]' : 'bg-slate-50 border-slate-200 text-slate-700'}`}>
+                      <div className="flex items-center gap-2 text-xs font-mono-jb">
+                        <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>BIRTHDAY:</span>
+                        <span>{cvData.personal.birthday}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs font-mono-jb">
+                        <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>BIRTHPLACE:</span>
+                        <span>{cvData.personal.birthplace}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs font-mono-jb">
+                        <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>PHONE:</span>
+                        <span>{cvData.personal.phone}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs font-mono-jb">
+                        <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>EMAIL:</span>
+                        <span>{cvData.personal.email}</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div>

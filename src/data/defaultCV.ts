@@ -8,6 +8,8 @@ export const defaultCVData: CVData = {
     introduction: "Hi, I’m Marvin Tumando, an IT student, creative storyteller, and faith-driven digital creator. I find meaning in merging technology, art, and purpose— building systems that serve people, crafting words that move hearts, and creating spaces online that reflect hope and authenticity.",
     careerObjective: "Let’s connect if you’re into tech, storytelling, or purpose-driven creativity, seeking innovative software engineering and digital media opportunities.",
     location: "Davao, Davao Region, Philippines",
+    birthday: "December 14, 2003",
+    birthplace: "Magnaga, Pantukan, Davao de Oro",
     email: "marvinkentumando@gmail.com",
     phone: "09639650443",
     githubUrl: "https://github.com/marvinkentumando",

@@ -5,6 +5,8 @@ export interface PersonalInfo {
   introduction: string;
   careerObjective: string;
   location: string;
+  birthday: string;
+  birthplace: string;
   email: string;
   phone: string;
   githubUrl: string;
