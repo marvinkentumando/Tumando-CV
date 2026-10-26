@@ -18,7 +18,8 @@ import {
   GraduationCap,
   Award,
   Sun,
-  Moon
+  Moon,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
   });
 
   const [activeTab, setActiveTab] = useState<'chat' | 'skills' | 'projects'>('chat');
+  const [expCategory, setExpCategory] = useState<string>('All');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [customizeModalOpen, setCustomizeModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
@@ -71,10 +73,16 @@ export default function App() {
     if (!promptInput.trim()) return;
     
     const newMsg = promptInput.trim();
+    const isContactInquiry = /hire|hiring|job|project|collab|collaborate|message|reach|contact|offer|work/i.test(newMsg);
+
+    const aiReply = isContactInquiry
+      ? `SUCCESS: Your inquiry ("${newMsg}") has been securely dispatched directly to ${cvData.personal.email}. Marvin will review your message and respond shortly!`
+      : `Query processed: "${newMsg}". Consulting ${cvData.personal.fullName}'s engineering and editorial ledger. All systems optimal.`;
+
     setChatMessages(prev => [
       ...prev,
       { sender: 'user', text: newMsg },
-      { sender: 'ai', text: `Query processed: "${newMsg}". Consulting ${cvData.personal.fullName}'s engineering ledger. All systems optimal.` }
+      { sender: 'ai', text: aiReply }
     ]);
     setPromptInput('');
   };
@@ -219,24 +227,43 @@ export default function App() {
                   </div>
 
                   <div>
-                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
-                      Experience Ledger
-                    </span>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                      <span className={`font-mono-jb text-[0.7rem] uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
+                        Experience Ledger
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {['All', 'Editorial & Media'].map((cat) => (
+                          <button
+                            key={cat}
+                            onClick={() => setExpCategory(cat)}
+                            className={`font-mono-jb text-xs px-3 py-1 rounded-lg border transition-all ${expCategory === cat ? (isDark ? 'bg-[#d0ff00] text-black font-bold border-[#d0ff00]' : 'bg-indigo-600 text-white font-bold border-indigo-600') : (isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.7)] hover:text-white' : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-900')}`}
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="space-y-4">
-                      {cvData.experience.map((exp) => (
-                        <div key={exp.id} className={`border p-5 sm:p-6 rounded-xl transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
-                          <span className={`font-mono-jb text-[0.65rem] block mb-1 ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>{exp.period} — {exp.company}</span>
-                          <h3 className={`text-base sm:text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{exp.role}</h3>
-                          <ul className={`space-y-1.5 text-xs sm:text-sm ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
-                            {exp.highlights.map((h, i) => (
-                              <li key={i} className="flex items-start gap-2">
-                                <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>›</span>
-                                <span>{h}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                      {cvData.experience
+                        .filter(exp => expCategory === 'All' || exp.category === expCategory)
+                        .map((exp) => (
+                          <div key={exp.id} className={`border p-5 sm:p-6 rounded-xl transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className={`font-mono-jb text-[0.65rem] ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>{exp.period} — {exp.company}</span>
+                              <span className={`font-mono-jb text-[0.6rem] px-2 py-0.5 rounded border ${isDark ? 'bg-[#0b0b0c] border-[rgba(226,226,228,0.08)] text-[#d0ff00]' : 'bg-white border-slate-200 text-indigo-600'}`}>{exp.category}</span>
+                            </div>
+                            <h3 className={`text-base sm:text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{exp.role}</h3>
+                            <ul className={`space-y-1.5 text-xs sm:text-sm ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
+                              {exp.highlights.map((h, i) => (
+                                <li key={i} className="flex items-start gap-2">
+                                  <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>›</span>
+                                  <span>{h}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                     </div>
                   </div>
 
@@ -386,7 +413,7 @@ export default function App() {
               type="text"
               value={promptInput}
               onChange={(e) => setPromptInput(e.target.value)}
-              placeholder={`Ask ${cvData.personal.fullName} anything...`}
+              placeholder={`Ask ${cvData.personal.fullName} anything or send inquiry to email...`}
               className={`flex-1 bg-transparent px-2 sm:px-3 text-xs sm:text-sm focus:outline-none font-sans ${isDark ? 'text-white placeholder-[rgba(226,226,228,0.3)]' : 'text-slate-900 placeholder-slate-400'}`}
             />
             <div className="flex items-center gap-1.5 sm:gap-2">

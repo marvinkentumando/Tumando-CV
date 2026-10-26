@@ -54,6 +54,7 @@ export interface ExperienceItem {
   location: string;
   period: string;
   type: 'Internship' | 'Freelance' | 'Leadership' | 'Academic Project';
+  category: 'Editorial & Media' | 'Software Engineering & Leadership';
   highlights: string[];
 }
 

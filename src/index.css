@@ -55,3 +55,48 @@
 ::-webkit-scrollbar-thumb {
   background: rgba(226, 226, 228, 0.08);
 }
+
+/* Print Media Optimization (@media print) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    overflow: auto !important;
+    height: auto !important;
+  }
+
+  nav, 
+  form, 
+  button, 
+  .print\:hidden {
+    display: none !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    overflow: visible !important;
+  }
+
+  div, span, p, h1, h3 {
+    color: #111111 !important;
+  }
+
+  .bg-\[\#161618\], 
+  .bg-\[\#0b0b0c\], 
+  .bg-slate-50, 
+  .bg-slate-100 {
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+  }
+
+  .text-\[\#d0ff00\], 
+  .text-indigo-600 {
+    color: #2563eb !important;
+  }
+}

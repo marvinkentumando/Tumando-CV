@@ -90,72 +90,56 @@ export const defaultCVData: CVData = {
   experience: [
     {
       id: "exp-1",
-      role: "Videoscribe Creator",
-      company: "Videoscribe",
-      location: "Remote",
-      period: "February 2026 - Present",
-      type: "Freelance",
+      role: "Managing & Circulations Editor / Associate Editor",
+      company: "The Davao Reef (Official Student Publication)",
+      location: "Davao del Norte State College",
+      period: "2025 - Present",
+      type: "Leadership",
+      category: "Editorial & Media",
       highlights: [
-        "Creating engaging whiteboard animation and motion graphics videos using Videoscribe.",
-        "Translating creative concepts into visual whiteboard stories."
+        "Managing editorial publications, circulations, and layout standards for the institutional student publication.",
+        "Serving as Managing & Circulations Editor (2026-2027) and former Associate Editor (2025-2026).",
+        "Overseeing writing, photojournalism, and design standards for campus releases."
       ]
     },
     {
       id: "exp-2",
-      role: "Associate Editor",
-      company: "Davao Reef",
-      location: "Davao Region",
-      period: "August 2025 - Present",
+      role: "Editor-in-Chief & Photojournalist",
+      company: "The Shoreline",
+      location: "Davao de Oro",
+      period: "2018 - 2023",
       type: "Leadership",
+      category: "Editorial & Media",
       highlights: [
-        "Editing campus publication articles, coordinating stories, and overseeing page layouts.",
-        "Managing editorial content and maintaining high journalistic standards."
+        "Led editorial board as Editor-in-Chief (2022-2023), directing news coverage and publication design.",
+        "Recognized as Most Outstanding Campus Journalist in Davao de Oro (2023).",
+        "Competed and won multiple DSPC and RSPC titles in Collaborative Desktop Publishing."
       ]
     },
     {
       id: "exp-3",
-      role: "Social Media Content Creator",
-      company: "Dodong Diary",
-      location: "Philippines",
-      period: "2025 - Present",
+      role: "Videoscribe Creator & CapCut Editor",
+      company: "Freelance",
+      location: "Remote",
+      period: "2021 - Present",
       type: "Freelance",
+      category: "Editorial & Media",
       highlights: [
-        "Content creation across social media accounts including YouTube, Instagram, Facebook, and TikTok.",
-        "Building digital storytelling and engaging faith-driven multimedia content."
+        "Creating engaging whiteboard animation and motion graphics videos using Videoscribe.",
+        "Video editing, reels production, and motion design using CapCut for digital storytelling campaigns."
       ]
     },
     {
       id: "exp-4",
       role: "Social Media Manager",
       company: "Lahi Foursquare Gospel Church",
-      location: "Pantukan, Davao Region, Philippines",
+      location: "Pantukan, Davao Region",
       period: "November 2023 - Present",
       type: "Leadership",
+      category: "Editorial & Media",
       highlights: [
         "Creating publication materials and writing engaging captions for church events and community outreach.",
         "Managing digital presence and online community engagement."
-      ]
-    },
-    {
-      id: "exp-5",
-      role: "Freelance Writer",
-      company: "Freelance / Self-Employed",
-      location: "Remote",
-      period: "August 2023 - Present",
-      type: "Freelance",
-      highlights: [
-        "Writing compelling articles, copy, and creative stories for various clients and publications."
-      ]
-    },
-    {
-      id: "exp-6",
-      role: "CapCut Editor",
-      company: "CapCut",
-      location: "Remote",
-      period: "June 2021 - Present",
-      type: "Freelance",
-      highlights: [
-        "Video editing, reels production, and motion design using CapCut for digital storytelling and social media campaigns."
       ]
     }
   ],
