@@ -14,7 +14,8 @@ import {
   Layers,
   FileText,
   User,
-  GraduationCap
+  GraduationCap,
+  Award
 } from 'lucide-react';
 
 export default function App() {
@@ -119,7 +120,7 @@ export default function App() {
         {/* Header Bar */}
         <div className="px-8 py-5 border-b border-[rgba(226,226,228,0.08)] flex justify-between items-center bg-[#0b0b0c]/80 backdrop-blur shrink-0">
           <span className="font-mono-jb text-xs font-medium tracking-wider text-[#e2e2e4]">
-            URMANDO_ENGINEERING_CORE.v26
+            URMANDO_ENGINEERING_CORE.v26 — {activeTab.toUpperCase()}_VIEW
           </span>
           <div className="flex items-center gap-6 font-mono-jb text-[0.65rem] text-[rgba(226,226,228,0.5)]">
             <span>LOC: {cvData.personal.location.split(',')[0].toUpperCase()}</span>
@@ -133,7 +134,9 @@ export default function App() {
           {/* User Bubble */}
           <div className="max-w-[85%] self-end">
             <div className="bg-[#161618] px-5 py-3.5 rounded-2xl rounded-tr-none border border-[rgba(226,226,228,0.08)] text-sm sm:text-base">
-              Get me a comprehensive briefing on {cvData.personal.fullName}, lead engineer.
+              {activeTab === 'chat' && `Get me a comprehensive briefing on ${cvData.personal.fullName}, lead engineer.`}
+              {activeTab === 'skills' && `Show me all technical stack capabilities and certifications for ${cvData.personal.fullName}.`}
+              {activeTab === 'projects' && `List all deployed assets and projects engineered by ${cvData.personal.fullName}.`}
             </div>
           </div>
 
@@ -145,84 +148,168 @@ export default function App() {
             
             <div className="flex-1 space-y-8">
               
-              {/* Identity / Summary */}
-              <div>
-                <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
-                  Identity / Executive Summary
-                </span>
-                <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-2">
-                  {cvData.personal.fullName}
-                </h1>
-                <p className="text-[rgba(226,226,228,0.6)] text-base sm:text-lg leading-relaxed max-w-3xl">
-                  {cvData.personal.introduction}
-                </p>
-              </div>
-
-
-
-              {/* Skill Stack */}
-              <div>
-                <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
-                  Stack Capabilities
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {cvData.skills.map((skill) => (
-                    <span 
-                      key={skill.id}
-                      className="font-mono-jb text-xs px-3 py-1.5 bg-[#161618] border border-[rgba(226,226,228,0.08)] rounded-md hover:border-[#d0ff00] transition-colors"
-                    >
-                      {skill.name} ({skill.proficiency}%)
+              {/* TAB 1: CHAT BRIEFING */}
+              {activeTab === 'chat' && (
+                <>
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Identity / Executive Summary
                     </span>
-                  ))}
-                </div>
-              </div>
+                    <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-2">
+                      {cvData.personal.fullName}
+                    </h1>
+                    <p className="text-[rgba(226,226,228,0.6)] text-base sm:text-lg leading-relaxed max-w-3xl">
+                      {cvData.personal.introduction}
+                    </p>
+                  </div>
 
-              {/* Experience Ledger */}
-              <div>
-                <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
-                  Experience Ledger
-                </span>
-                <div className="space-y-4">
-                  {cvData.experience.map((exp) => (
-                    <div key={exp.id} className="bg-[#161618] border border-[rgba(226,226,228,0.08)] p-6 rounded-xl">
-                      <span className="font-mono-jb text-[0.65rem] text-[rgba(226,226,228,0.5)] block mb-1">{exp.period} — {exp.company}</span>
-                      <h3 className="text-lg font-semibold mb-2">{exp.role}</h3>
-                      <ul className="space-y-1.5 text-sm text-[rgba(226,226,228,0.6)]">
-                        {exp.highlights.map((h, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="text-[#d0ff00]">›</span>
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Stack Capabilities
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {cvData.skills.map((skill) => (
+                        <span 
+                          key={skill.id}
+                          className="font-mono-jb text-xs px-3 py-1.5 bg-[#161618] border border-[rgba(226,226,228,0.08)] rounded-md hover:border-[#d0ff00] transition-colors"
+                        >
+                          {skill.name} ({skill.proficiency}%)
+                        </span>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              {/* Deployed Assets */}
-              <div>
-                <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
-                  Deployed Assets & Projects
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {cvData.projects.map((proj) => (
-                    <a
-                      key={proj.id}
-                      href={proj.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-4 bg-[#0b0b0c] border border-[rgba(226,226,228,0.08)] rounded-xl hover:border-[#d0ff00] transition-all flex flex-col justify-between group"
-                    >
-                      <div>
-                        <span className="font-semibold text-sm group-hover:text-[#d0ff00] transition-colors block mb-1">{proj.title}</span>
-                        <p className="text-xs text-[rgba(226,226,228,0.5)] line-clamp-2">{proj.description}</p>
-                      </div>
-                      <span className="font-mono-jb text-[0.65rem] text-[#d0ff00] mt-3 block">/{proj.category}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Experience Ledger
+                    </span>
+                    <div className="space-y-4">
+                      {cvData.experience.map((exp) => (
+                        <div key={exp.id} className="bg-[#161618] border border-[rgba(226,226,228,0.08)] p-6 rounded-xl">
+                          <span className="font-mono-jb text-[0.65rem] text-[rgba(226,226,228,0.5)] block mb-1">{exp.period} — {exp.company}</span>
+                          <h3 className="text-lg font-semibold mb-2">{exp.role}</h3>
+                          <ul className="space-y-1.5 text-sm text-[rgba(226,226,228,0.6)]">
+                            {exp.highlights.map((h, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <span className="text-[#d0ff00]">›</span>
+                                <span>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Deployed Assets & Projects
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {cvData.projects.map((proj) => (
+                        <a
+                          key={proj.id}
+                          href={proj.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-4 bg-[#0b0b0c] border border-[rgba(226,226,228,0.08)] rounded-xl hover:border-[#d0ff00] transition-all flex flex-col justify-between group"
+                        >
+                          <div>
+                            <span className="font-semibold text-sm group-hover:text-[#d0ff00] transition-colors block mb-1">{proj.title}</span>
+                            <p className="text-xs text-[rgba(226,226,228,0.5)] line-clamp-2">{proj.description}</p>
+                          </div>
+                          <span className="font-mono-jb text-[0.65rem] text-[#d0ff00] mt-3 block">/{proj.category}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 2: SKILLS & CERTIFICATIONS */}
+              {activeTab === 'skills' && (
+                <>
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Technical Stack & Competencies
+                    </span>
+                    <h1 className="text-3xl font-semibold tracking-tight mb-6">
+                      Stack Capabilities & Certifications
+                    </h1>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {cvData.skills.map((skill) => (
+                        <div key={skill.id} className="bg-[#161618] p-5 rounded-xl border border-[rgba(226,226,228,0.08)]">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-semibold text-white">{skill.name}</span>
+                            <span className="font-mono-jb text-xs text-[#d0ff00]">{skill.proficiency}%</span>
+                          </div>
+                          <div className="w-full bg-[#0b0b0c] h-2 rounded-full overflow-hidden">
+                            <div className="bg-[#d0ff00] h-full rounded-full" style={{ width: `${skill.proficiency}%` }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-6">
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Certifications & Honors
+                    </span>
+                    <div className="space-y-4">
+                      {cvData.achievements.map((ach) => (
+                        <div key={ach.id} className="bg-[#161618] p-5 rounded-xl border border-[rgba(226,226,228,0.08)]">
+                          <span className="font-mono-jb text-[0.65rem] text-[#d0ff00] block mb-1">{ach.type} — {ach.date}</span>
+                          <h3 className="font-semibold text-lg text-white mb-1">{ach.title}</h3>
+                          <p className="text-xs text-[rgba(226,226,228,0.5)]">Issuer: {ach.issuer}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 3: DEPLOYED ASSETS & PROJECTS */}
+              {activeTab === 'projects' && (
+                <>
+                  <div>
+                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                      Software Engineering Portfolio
+                    </span>
+                    <h1 className="text-3xl font-semibold tracking-tight mb-6">
+                      Deployed Assets & Systems
+                    </h1>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {cvData.projects.map((proj) => (
+                        <div key={proj.id} className="bg-[#161618] p-6 rounded-2xl border border-[rgba(226,226,228,0.08)] flex flex-col justify-between space-y-4">
+                          <div>
+                            <span className="font-mono-jb text-xs text-[#d0ff00] block mb-1">/{proj.category}</span>
+                            <h3 className="text-xl font-bold text-white mb-2">{proj.title}</h3>
+                            <p className="text-sm text-[rgba(226,226,228,0.6)] leading-relaxed">{proj.description}</p>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {proj.technologies.map((t, idx) => (
+                              <span key={idx} className="font-mono-jb text-[0.65rem] px-2.5 py-1 bg-[#0b0b0c] border border-[rgba(226,226,228,0.08)] rounded text-[rgba(226,226,228,0.7)]">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="pt-4 border-t border-[rgba(226,226,228,0.08)] flex justify-end">
+                            <a 
+                              href={proj.githubUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="font-mono-jb text-xs text-[#d0ff00] flex items-center gap-1 hover:underline"
+                            >
+                              <span>View Repository</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Archives & Education */}
               <div className="pt-6 border-t border-[rgba(226,226,228,0.08)]">
