@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CVData } from './types';
+import { CVData, ProjectItem } from './types';
 import { defaultCVData } from './data/defaultCV';
 import { CustomizeModal } from './components/CustomizeModal';
+import { ProjectModal } from './components/ProjectModal';
 import { 
   MessageSquare, 
   Terminal, 
@@ -15,7 +16,9 @@ import {
   FileText,
   User,
   GraduationCap,
-  Award
+  Award,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 export default function App() {
@@ -32,7 +35,9 @@ export default function App() {
   });
 
   const [activeTab, setActiveTab] = useState<'chat' | 'skills' | 'projects'>('chat');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [customizeModalOpen, setCustomizeModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [promptInput, setPromptInput] = useState('');
   const [chatMessages, setChatMessages] = useState<Array<{sender: 'user' | 'ai', text: string}>>([
     { sender: 'user', text: `Get me a briefing on ${cvData.personal.fullName}, lead engineer.` },
@@ -40,8 +45,12 @@ export default function App() {
   ]);
 
   useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   const handleUpdateCV = (newData: CVData) => {
     setCvData(newData);
@@ -70,43 +79,53 @@ export default function App() {
     setPromptInput('');
   };
 
+  const isDark = theme === 'dark';
+
   return (
-    <div className="bg-[#0b0b0c] text-[#e2e2e4] font-sans antialiased h-screen flex overflow-hidden selection:bg-[#d0ff00] selection:text-black">
+    <div className={`font-sans antialiased h-screen flex overflow-hidden transition-colors duration-300 ${isDark ? 'bg-[#0b0b0c] text-[#e2e2e4] selection:bg-[#d0ff00] selection:text-black' : 'bg-[#f4f4f5] text-[#18181b] selection:bg-indigo-600 selection:text-white'}`}>
       
       {/* Dark Side Shell Navigation */}
-      <nav className="w-20 bg-black border-r border-[rgba(226,226,228,0.08)] flex flex-col items-center py-6 gap-6 shrink-0 print:hidden">
+      <nav className={`w-20 flex flex-col items-center py-6 gap-6 shrink-0 print:hidden transition-colors ${isDark ? 'bg-black border-r border-[rgba(226,226,228,0.08)]' : 'bg-white border-r border-slate-200'}`}>
         <button 
           onClick={() => setActiveTab('chat')}
-          className={`w-11 h-11 rounded-xl bg-[#161618] flex items-center justify-center border transition-all ${activeTab === 'chat' ? 'border-[#d0ff00] text-[#d0ff00]' : 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white'}`}
+          className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${activeTab === 'chat' ? (isDark ? 'border-[#d0ff00] text-[#d0ff00] bg-[#161618]' : 'border-indigo-600 text-indigo-600 bg-indigo-50') : (isDark ? 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white bg-[#161618]' : 'border-slate-200 text-slate-400 hover:text-slate-900 bg-slate-50')}`}
           title="AI Briefing Core"
         >
           <MessageSquare className="w-5 h-5" />
         </button>
         <button 
           onClick={() => setActiveTab('skills')}
-          className={`w-11 h-11 rounded-xl bg-[#161618] flex items-center justify-center border transition-all ${activeTab === 'skills' ? 'border-[#d0ff00] text-[#d0ff00]' : 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white'}`}
+          className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${activeTab === 'skills' ? (isDark ? 'border-[#d0ff00] text-[#d0ff00] bg-[#161618]' : 'border-indigo-600 text-indigo-600 bg-indigo-50') : (isDark ? 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white bg-[#161618]' : 'border-slate-200 text-slate-400 hover:text-slate-900 bg-slate-50')}`}
           title="Skills & Expertise"
         >
           <Terminal className="w-5 h-5" />
         </button>
         <button 
           onClick={() => setActiveTab('projects')}
-          className={`w-11 h-11 rounded-xl bg-[#161618] flex items-center justify-center border transition-all ${activeTab === 'projects' ? 'border-[#d0ff00] text-[#d0ff00]' : 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white'}`}
+          className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${activeTab === 'projects' ? (isDark ? 'border-[#d0ff00] text-[#d0ff00] bg-[#161618]' : 'border-indigo-600 text-indigo-600 bg-indigo-50') : (isDark ? 'border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.5)] hover:text-white bg-[#161618]' : 'border-slate-200 text-slate-400 hover:text-slate-900 bg-slate-50')}`}
           title="Deployed Assets"
         >
           <Layers className="w-5 h-5" />
         </button>
+
         <div className="mt-auto flex flex-col gap-3">
           <button
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+            className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-amber-400 hover:bg-[#222224]' : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'}`}
+            title={isDark ? "Switch to Editorial Light Mode" : "Switch to Terminal Dark Mode"}
+          >
+            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+          <button
             onClick={() => setCustomizeModalOpen(true)}
-            className="w-11 h-11 rounded-xl bg-[#161618] flex items-center justify-center border border-[rgba(226,226,228,0.08)] text-[#d0ff00] hover:bg-[#222224] transition-all"
+            className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-[#d0ff00] hover:bg-[#222224]' : 'bg-slate-50 border-slate-200 text-indigo-600 hover:bg-slate-100'}`}
             title="Customize CV"
           >
             <Sliders className="w-5 h-5" />
           </button>
           <button
             onClick={handlePrint}
-            className="w-11 h-11 rounded-xl bg-[#d0ff00] text-black flex items-center justify-center font-bold hover:bg-[#b5e000] transition-all shadow-lg"
+            className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold transition-all shadow-lg ${isDark ? 'bg-[#d0ff00] text-black hover:bg-[#b5e000]' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
             title="Print / Save PDF"
           >
             <Download className="w-5 h-5" />
@@ -115,14 +134,14 @@ export default function App() {
       </nav>
 
       {/* Main Chat Layout Container */}
-      <main className="flex-1 flex flex-col max-w-5xl mx-auto border-x border-[rgba(226,226,228,0.08)] relative h-full">
+      <main className={`flex-1 flex flex-col max-w-5xl mx-auto border-x relative h-full transition-colors ${isDark ? 'border-[rgba(226,226,228,0.08)]' : 'border-slate-200 bg-white'}`}>
         
         {/* Header Bar */}
-        <div className="px-8 py-5 border-b border-[rgba(226,226,228,0.08)] flex justify-between items-center bg-[#0b0b0c]/80 backdrop-blur shrink-0">
-          <span className="font-mono-jb text-xs font-medium tracking-wider text-[#e2e2e4]">
-            URMANDO_ENGINEERING_CORE.v26 — {activeTab.toUpperCase()}_VIEW
+        <div className={`px-8 py-5 border-b flex justify-between items-center backdrop-blur shrink-0 transition-colors ${isDark ? 'border-[rgba(226,226,228,0.08)] bg-[#0b0b0c]/80 text-[#e2e2e4]' : 'border-slate-200 bg-white/80 text-slate-800'}`}>
+          <span className="font-mono-jb text-xs font-medium tracking-wider">
+            URMANDO_ENGINEERING_CORE.v26 — {activeTab.toUpperCase()}_VIEW ({isDark ? 'TERMINAL_DARK' : 'EDITORIAL_LIGHT'})
           </span>
-          <div className="flex items-center gap-6 font-mono-jb text-[0.65rem] text-[rgba(226,226,228,0.5)]">
+          <div className={`flex items-center gap-6 font-mono-jb text-[0.65rem] ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>
             <span>LOC: {cvData.personal.location.split(',')[0].toUpperCase()}</span>
             <span>GITHUB: /{cvData.personal.githubUrl.split('/').pop()?.toUpperCase()}</span>
           </div>
@@ -133,7 +152,7 @@ export default function App() {
           
           {/* User Bubble */}
           <div className="max-w-[85%] self-end">
-            <div className="bg-[#161618] px-5 py-3.5 rounded-2xl rounded-tr-none border border-[rgba(226,226,228,0.08)] text-sm sm:text-base">
+            <div className={`px-5 py-3.5 rounded-2xl rounded-tr-none border text-sm sm:text-base ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-[#e2e2e4]' : 'bg-slate-100 border-slate-200 text-slate-900'}`}>
               {activeTab === 'chat' && `Get me a comprehensive briefing on ${cvData.personal.fullName}, lead engineer.`}
               {activeTab === 'skills' && `Show me all technical stack capabilities and certifications for ${cvData.personal.fullName}.`}
               {activeTab === 'projects' && `List all deployed assets and projects engineered by ${cvData.personal.fullName}.`}
@@ -142,7 +161,7 @@ export default function App() {
 
           {/* AI Response Bubble */}
           <div className="w-full self-start flex gap-5">
-            <div className="w-9 h-9 bg-[#d0ff00] rounded-xl shrink-0 flex items-center justify-center text-black font-bold font-mono-jb text-sm shadow-md">
+            <div className={`w-9 h-9 rounded-xl shrink-0 flex items-center justify-center font-bold font-mono-jb text-sm shadow-md ${isDark ? 'bg-[#d0ff00] text-black' : 'bg-indigo-600 text-white'}`}>
               {cvData.personal.fullName.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </div>
             
@@ -152,26 +171,26 @@ export default function App() {
               {activeTab === 'chat' && (
                 <>
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Identity / Executive Summary
                     </span>
-                    <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-2">
+                    <h1 className={`text-3xl sm:text-4xl font-semibold tracking-tight mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                       {cvData.personal.fullName}
                     </h1>
-                    <p className="text-[rgba(226,226,228,0.6)] text-base sm:text-lg leading-relaxed max-w-3xl">
+                    <p className={`text-base sm:text-lg leading-relaxed max-w-3xl ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
                       {cvData.personal.introduction}
                     </p>
                   </div>
 
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Stack Capabilities
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {cvData.skills.map((skill) => (
                         <span 
                           key={skill.id}
-                          className="font-mono-jb text-xs px-3 py-1.5 bg-[#161618] border border-[rgba(226,226,228,0.08)] rounded-md hover:border-[#d0ff00] transition-colors"
+                          className={`font-mono-jb text-xs px-3 py-1.5 rounded-md border transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-[#e2e2e4] hover:border-[#d0ff00]' : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-indigo-600'}`}
                         >
                           {skill.name} ({skill.proficiency}%)
                         </span>
@@ -180,18 +199,18 @@ export default function App() {
                   </div>
 
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Experience Ledger
                     </span>
                     <div className="space-y-4">
                       {cvData.experience.map((exp) => (
-                        <div key={exp.id} className="bg-[#161618] border border-[rgba(226,226,228,0.08)] p-6 rounded-xl">
-                          <span className="font-mono-jb text-[0.65rem] text-[rgba(226,226,228,0.5)] block mb-1">{exp.period} — {exp.company}</span>
-                          <h3 className="text-lg font-semibold mb-2">{exp.role}</h3>
-                          <ul className="space-y-1.5 text-sm text-[rgba(226,226,228,0.6)]">
+                        <div key={exp.id} className={`border p-6 rounded-xl transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
+                          <span className={`font-mono-jb text-[0.65rem] block mb-1 ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>{exp.period} — {exp.company}</span>
+                          <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{exp.role}</h3>
+                          <ul className={`space-y-1.5 text-sm ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>
                             {exp.highlights.map((h, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <span className="text-[#d0ff00]">›</span>
+                                <span className={isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}>›</span>
                                 <span>{h}</span>
                               </li>
                             ))}
@@ -202,24 +221,22 @@ export default function App() {
                   </div>
 
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
-                      Deployed Assets & Projects
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
+                      Deployed Assets & Projects (Click to inspect deep-dive)
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {cvData.projects.map((proj) => (
-                        <a
+                        <button
                           key={proj.id}
-                          href={proj.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-4 bg-[#0b0b0c] border border-[rgba(226,226,228,0.08)] rounded-xl hover:border-[#d0ff00] transition-all flex flex-col justify-between group"
+                          onClick={() => setSelectedProject(proj)}
+                          className={`p-4 border rounded-xl transition-all flex flex-col justify-between group text-left cursor-pointer ${isDark ? 'bg-[#0b0b0c] border-[rgba(226,226,228,0.08)] hover:border-[#d0ff00]' : 'bg-slate-50 border-slate-200 hover:border-indigo-600'}`}
                         >
                           <div>
-                            <span className="font-semibold text-sm group-hover:text-[#d0ff00] transition-colors block mb-1">{proj.title}</span>
-                            <p className="text-xs text-[rgba(226,226,228,0.5)] line-clamp-2">{proj.description}</p>
+                            <span className={`font-semibold text-sm transition-colors block mb-1 ${isDark ? 'text-white group-hover:text-[#d0ff00]' : 'text-slate-900 group-hover:text-indigo-600'}`}>{proj.title}</span>
+                            <p className={`text-xs line-clamp-2 ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>{proj.description}</p>
                           </div>
-                          <span className="font-mono-jb text-[0.65rem] text-[#d0ff00] mt-3 block">/{proj.category}</span>
-                        </a>
+                          <span className={`font-mono-jb text-[0.65rem] mt-3 block ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`}>/{proj.category} → Deep Dive</span>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -230,21 +247,21 @@ export default function App() {
               {activeTab === 'skills' && (
                 <>
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Technical Stack & Competencies
                     </span>
-                    <h1 className="text-3xl font-semibold tracking-tight mb-6">
+                    <h1 className={`text-3xl font-semibold tracking-tight mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                       Stack Capabilities & Certifications
                     </h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {cvData.skills.map((skill) => (
-                        <div key={skill.id} className="bg-[#161618] p-5 rounded-xl border border-[rgba(226,226,228,0.08)]">
+                        <div key={skill.id} className={`p-5 rounded-xl border transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
                           <div className="flex items-center justify-between mb-2">
-                            <span className="font-semibold text-white">{skill.name}</span>
-                            <span className="font-mono-jb text-xs text-[#d0ff00]">{skill.proficiency}%</span>
+                            <span className={`font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>{skill.name}</span>
+                            <span className={`font-mono-jb text-xs ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>{skill.proficiency}%</span>
                           </div>
-                          <div className="w-full bg-[#0b0b0c] h-2 rounded-full overflow-hidden">
-                            <div className="bg-[#d0ff00] h-full rounded-full" style={{ width: `${skill.proficiency}%` }} />
+                          <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-[#0b0b0c]' : 'bg-slate-200'}`}>
+                            <div className={`h-full rounded-full ${isDark ? 'bg-[#d0ff00]' : 'bg-indigo-600'}`} style={{ width: `${skill.proficiency}%` }} />
                           </div>
                         </div>
                       ))}
@@ -252,15 +269,15 @@ export default function App() {
                   </div>
 
                   <div className="pt-6">
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Certifications & Honors
                     </span>
                     <div className="space-y-4">
                       {cvData.achievements.map((ach) => (
-                        <div key={ach.id} className="bg-[#161618] p-5 rounded-xl border border-[rgba(226,226,228,0.08)]">
-                          <span className="font-mono-jb text-[0.65rem] text-[#d0ff00] block mb-1">{ach.type} — {ach.date}</span>
-                          <h3 className="font-semibold text-lg text-white mb-1">{ach.title}</h3>
-                          <p className="text-xs text-[rgba(226,226,228,0.5)]">Issuer: {ach.issuer}</p>
+                        <div key={ach.id} className={`p-5 rounded-xl border transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
+                          <span className={`font-mono-jb text-[0.65rem] block mb-1 ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`}>{ach.type} — {ach.date}</span>
+                          <h3 className={`font-semibold text-lg mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>{ach.title}</h3>
+                          <p className={`text-xs ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>Issuer: {ach.issuer}</p>
                         </div>
                       ))}
                     </div>
@@ -272,37 +289,34 @@ export default function App() {
               {activeTab === 'projects' && (
                 <>
                   <div>
-                    <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+                    <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                       Software Engineering Portfolio
                     </span>
-                    <h1 className="text-3xl font-semibold tracking-tight mb-6">
-                      Deployed Assets & Systems
+                    <h1 className={`text-3xl font-semibold tracking-tight mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      Deployed Assets & Systems (Click any card for Deep-Dive)
                     </h1>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {cvData.projects.map((proj) => (
-                        <div key={proj.id} className="bg-[#161618] p-6 rounded-2xl border border-[rgba(226,226,228,0.08)] flex flex-col justify-between space-y-4">
+                        <div 
+                          key={proj.id} 
+                          onClick={() => setSelectedProject(proj)}
+                          className={`p-6 rounded-2xl border transition-all flex flex-col justify-between space-y-4 cursor-pointer group ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] hover:border-[#d0ff00]' : 'bg-slate-50 border-slate-200 hover:border-indigo-600 shadow-sm'}`}
+                        >
                           <div>
-                            <span className="font-mono-jb text-xs text-[#d0ff00] block mb-1">/{proj.category}</span>
-                            <h3 className="text-xl font-bold text-white mb-2">{proj.title}</h3>
-                            <p className="text-sm text-[rgba(226,226,228,0.6)] leading-relaxed">{proj.description}</p>
+                            <span className={`font-mono-jb text-xs block mb-1 ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`}>/{proj.category}</span>
+                            <h3 className={`text-xl font-bold mb-2 transition-colors ${isDark ? 'text-white group-hover:text-[#d0ff00]' : 'text-slate-900 group-hover:text-indigo-600'}`}>{proj.title}</h3>
+                            <p className={`text-sm leading-relaxed ${isDark ? 'text-[rgba(226,226,228,0.6)]' : 'text-slate-600'}`}>{proj.description}</p>
                           </div>
                           <div className="flex flex-wrap gap-1.5">
                             {proj.technologies.map((t, idx) => (
-                              <span key={idx} className="font-mono-jb text-[0.65rem] px-2.5 py-1 bg-[#0b0b0c] border border-[rgba(226,226,228,0.08)] rounded text-[rgba(226,226,228,0.7)]">
+                              <span key={idx} className={`font-mono-jb text-[0.65rem] px-2.5 py-1 rounded border ${isDark ? 'bg-[#0b0b0c] border-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.7)]' : 'bg-white border-slate-200 text-slate-700'}`}>
                                 {t}
                               </span>
                             ))}
                           </div>
-                          <div className="pt-4 border-t border-[rgba(226,226,228,0.08)] flex justify-end">
-                            <a 
-                              href={proj.githubUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="font-mono-jb text-xs text-[#d0ff00] flex items-center gap-1 hover:underline"
-                            >
-                              <span>View Repository</span>
-                              <ExternalLink className="w-3.5 h-3.5" />
-                            </a>
+                          <div className={`pt-4 border-t flex items-center justify-between ${isDark ? 'border-[rgba(226,226,228,0.08)]' : 'border-slate-200'}`}>
+                            <span className={`font-mono-jb text-xs ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`}>Click for Architecture Deep-Dive →</span>
+                            <ExternalLink className={`w-4 h-4 ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`} />
                           </div>
                         </div>
                       ))}
@@ -312,18 +326,18 @@ export default function App() {
               )}
 
               {/* Archives & Education */}
-              <div className="pt-6 border-t border-[rgba(226,226,228,0.08)]">
-                <span className="font-mono-jb text-[0.7rem] text-[#d0ff00] mb-3 block uppercase tracking-widest">
+              <div className={`pt-6 border-t ${isDark ? 'border-[rgba(226,226,228,0.08)]' : 'border-slate-200'}`}>
+                <span className={`font-mono-jb text-[0.7rem] mb-3 block uppercase tracking-widest ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600 font-semibold'}`}>
                   Academic Archives
                 </span>
                 <div className="space-y-3">
                   {cvData.education.map((edu) => (
-                    <div key={edu.id} className="text-sm text-[rgba(226,226,228,0.7)] flex flex-col sm:flex-row sm:items-center justify-between bg-[#161618] p-4 rounded-xl border border-[rgba(226,226,228,0.08)]">
+                    <div key={edu.id} className={`text-sm flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-colors ${isDark ? 'text-[rgba(226,226,228,0.7)] bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'text-slate-700 bg-slate-50 border-slate-200'}`}>
                       <div>
-                        <span className="font-semibold text-white block">{edu.degree}</span>
-                        <span className="text-xs text-[rgba(226,226,228,0.5)]">{edu.school}</span>
+                        <span className={`font-semibold block ${isDark ? 'text-white' : 'text-slate-900'}`}>{edu.degree}</span>
+                        <span className={`text-xs ${isDark ? 'text-[rgba(226,226,228,0.5)]' : 'text-slate-500'}`}>{edu.school}</span>
                       </div>
-                      <span className="font-mono-jb text-xs text-[#d0ff00] mt-1 sm:mt-0">{edu.period}</span>
+                      <span className={`font-mono-jb text-xs mt-1 sm:mt-0 ${isDark ? 'text-[#d0ff00]' : 'text-indigo-600'}`}>{edu.period}</span>
                     </div>
                   ))}
                 </div>
@@ -331,11 +345,11 @@ export default function App() {
 
               {/* Additional Chat Messages */}
               {chatMessages.slice(2).map((msg, idx) => (
-                <div key={idx} className={msg.sender === 'user' ? 'max-w-[85%] self-end' : 'bg-[#161618] p-4 rounded-xl border border-[rgba(226,226,228,0.08)]'}>
+                <div key={idx} className={msg.sender === 'user' ? 'max-w-[85%] self-end' : `p-4 rounded-xl border ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
                   {msg.sender === 'user' ? (
-                    <div className="bg-[#161618] px-5 py-3.5 rounded-2xl rounded-tr-none border border-[rgba(226,226,228,0.08)] text-sm">{msg.text}</div>
+                    <div className={`px-5 py-3.5 rounded-2xl rounded-tr-none border text-sm ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)] text-white' : 'bg-slate-100 border-slate-200 text-slate-900'}`}>{msg.text}</div>
                   ) : (
-                    <p className="text-sm text-[rgba(226,226,228,0.8)]">{msg.text}</p>
+                    <p className={`text-sm ${isDark ? 'text-[rgba(226,226,228,0.8)]' : 'text-slate-700'}`}>{msg.text}</p>
                   )}
                 </div>
               ))}
@@ -346,26 +360,26 @@ export default function App() {
         </div>
 
         {/* Prompt Input Shell */}
-        <div className="p-6 sm:p-8 bg-gradient-to-transparent from-transparent via-[#0b0b0c] to-[#0b0b0c] shrink-0">
-          <form onSubmit={handleSendPrompt} className="bg-[#161618] border border-[rgba(226,226,228,0.08)] rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xl">
+        <div className={`p-6 sm:p-8 shrink-0 bg-gradient-to-t ${isDark ? 'from-[#0b0b0c] via-[#0b0b0c]' : 'from-white via-white'}`}>
+          <form onSubmit={handleSendPrompt} className={`border rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xl transition-colors ${isDark ? 'bg-[#161618] border-[rgba(226,226,228,0.08)]' : 'bg-slate-50 border-slate-200'}`}>
             <input
               type="text"
               value={promptInput}
               onChange={(e) => setPromptInput(e.target.value)}
               placeholder={`Ask ${cvData.personal.fullName} anything or request info...`}
-              className="flex-1 bg-transparent px-3 text-sm text-white focus:outline-none placeholder-[rgba(226,226,228,0.3)] font-sans"
+              className={`flex-1 bg-transparent px-3 text-sm focus:outline-none font-sans ${isDark ? 'text-white placeholder-[rgba(226,226,228,0.3)]' : 'text-slate-900 placeholder-slate-400'}`}
             />
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={handlePrint}
-                className="px-4 py-2.5 rounded-xl bg-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.8)] font-mono-jb text-xs font-semibold hover:bg-[rgba(226,226,228,0.15)] transition-colors hidden sm:block"
+                className={`px-4 py-2.5 rounded-xl font-mono-jb text-xs font-semibold transition-colors hidden sm:block ${isDark ? 'bg-[rgba(226,226,228,0.08)] text-[rgba(226,226,228,0.8)] hover:bg-[rgba(226,226,228,0.15)]' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}`}
               >
                 RESUME.PDF
               </button>
               <button
                 type="submit"
-                className="bg-[#d0ff00] text-black border-none px-5 py-2.5 rounded-xl font-semibold font-mono-jb text-xs hover:bg-[#b5e000] transition-all flex items-center gap-1.5 shadow-md"
+                className={`border-none px-5 py-2.5 rounded-xl font-semibold font-mono-jb text-xs transition-all flex items-center gap-1.5 shadow-md ${isDark ? 'bg-[#d0ff00] text-black hover:bg-[#b5e000]' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
               >
                 <span>SEND</span>
                 <Send className="w-3.5 h-3.5" />
@@ -383,6 +397,12 @@ export default function App() {
         cvData={cvData}
         onUpdateCV={handleUpdateCV}
         onResetDefault={handleResetDefault}
+      />
+
+      {/* Project Deep-Dive Modal */}
+      <ProjectModal 
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
       />
 
     </div>
